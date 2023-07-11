@@ -12,7 +12,7 @@ void Traffic_LightSet(int *sp) ;
 void Room_Temp(Ac *Ac , int *R) ;
 void Engine_Temp(Engine_Control *Eng , int *E) ;
 void TurnOFF(Car *c) ;
-void Display(int c , int Ac , int sp , int R , int Eng , int E );
+void Display(Car c , Ac Ac , int sp , int R , Engine_Control Eng , int E );
 
 
 int main(void)
@@ -172,7 +172,7 @@ void TurnOFF(Car *c)  // Turn off State
 	scanf("%d" , c) ;
 }
 
-void Display(int c , int Ac , int sp , int R , int Eng , int E ) // Display the Data
+void Display(Car c , Ac Ac , int sp , int R , Engine_Control Eng , int E ) // Display the Data
 {
 	if(c == Turn_On)
 	{
