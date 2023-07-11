@@ -3,15 +3,15 @@
 
 #define WITH_ENGINE_TEMP_CONTROLLER 0
 
-enum Car {Quit , Turn_Off , Turn_On} ;
-enum Ac {Ac_OFF , Ac_ON} ;
-enum Engine_Control {E_OFF , E_ON} ;
+typedef enum {Quit , Turn_Off , Turn_On}Car ;
+typedef enum {Ac_OFF , Ac_ON}Ac ;
+typedef enum {E_OFF , E_ON}Engine_Control ;
 
 // Function Prototypes:
-void Traffic_LightSet(int *sp , char *TL) ;
-void Room_Temp(int *Ac , int *R) ;
-void Engine_Temp(int *Eng , int *E) ;
-void TurnOFF(int *c) ;
+void Traffic_LightSet(int *sp) ;
+void Room_Temp(Ac *Ac , int *R) ;
+void Engine_Temp(Engine_Control *Eng , int *E) ;
+void TurnOFF(Car *c) ;
 void Display(int c , int Ac , int sp , int R , int Eng , int E );
 
 
@@ -21,8 +21,9 @@ int main(void)
 
 	// Initialization:
 	int Speed = 20 , R_Temperature = 25 , E_Temperature = 90 , Set_Menu = 0 ;
-	int Condition = Quit , Ac_Con = Ac_OFF , Eng_Control = E_OFF;
-	char Traffic_Light ;
+	Car Condition = Quit ;
+	Ac Ac_Con = Ac_OFF ;
+	Engine_Control Eng_Control = E_OFF;
 	int Flag = 0 ;
 
 	// Code:
@@ -62,7 +63,7 @@ int main(void)
 				Flag = 0 ;
 				break ;
 			case 2 :
-				Traffic_LightSet(&Speed , &Traffic_Light) ;
+				Traffic_LightSet(&Speed) ;
 				Flag = 1 ;
 				break ;
 			case 3 :
@@ -101,12 +102,14 @@ int main(void)
 	}
 }
 
-void Traffic_LightSet(int *sp , char *TL ) // Set Traffic Light
+void Traffic_LightSet(int *sp) // Set Traffic Light
 {
-	printf("\nSet the traffic light color\n");
-	scanf(" %c" , TL) ;
+	char Traffic_Light ;
 
-	switch(*TL)
+	printf("\nSet the traffic light color\n");
+	scanf(" %c" , &Traffic_Light) ;
+
+	switch(Traffic_Light)
 	{
 	case 'g':
 		*sp = 100 ;
@@ -122,7 +125,7 @@ void Traffic_LightSet(int *sp , char *TL ) // Set Traffic Light
 	}
 }
 
-void Room_Temp(int *Ac , int *R) // Set Room Temperature
+void Room_Temp(Ac *Ac , int *R) // Set Room Temperature
 {
 	printf("\nSet the room temperature (Temperature Sensor)\n");
 	scanf("%d" , R) ;
@@ -143,7 +146,7 @@ void Room_Temp(int *Ac , int *R) // Set Room Temperature
 
 }
 
-void Engine_Temp(int *Eng , int *E) // Set Engine Temperature
+void Engine_Temp(Engine_Control *Eng , int *E)  // Set Engine Temperature
 {
 	printf("\nSet the engine temperature (Engine Temperature Sensor)\n");
 	scanf("%d" , E) ;
@@ -163,7 +166,7 @@ void Engine_Temp(int *Eng , int *E) // Set Engine Temperature
 	}
 }
 
-void TurnOFF(int *c) // Turn off State
+void TurnOFF(Car *c)  // Turn off State
 {
 	printf("Please Choose your condition: Quit = 0 , Turn off = 1 , turn on = 2\n");
 	scanf("%d" , c) ;
